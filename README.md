@@ -51,7 +51,30 @@ In your `spec_helper`:
 
     require "json_schema_spec"
 
-###Test params from schema
+###Client side project setup
+
+In your `Rakefile`:
+
+    require "json_schema_spec/tasks"
+    JsonSchemaSpec::Tasks.new("http://127.0.0.1:3000")
+
+####Download schema
+
+Download `schema.json` from the URL specified in your `Rakefile`:
+
+    rake spec:schema
+
+The schema is written to `schema/fixtures`.
+
+###Server side project setup
+
+On Rails, your schema is automatically detected at `/schema.json`.
+
+If your `schema.json` is somewhere else, try this:
+
+    JsonSchemaSpec.schema = get("/users/schema.json")
+
+###Generate test parameters
 
     request, response = json_schema_params(:user, :get)
 
@@ -69,7 +92,7 @@ The `response` hash looks like this:
 
 **Optional** parameters are not included.
 
-###Modify test params
+###Modify test parameters
 
     request, response = json_schema_params(:user, :get, :request => { :id => 1 })
 
@@ -87,29 +110,6 @@ The `request` hash now looks like this:
     stub_request(:get, "http://127.0.0.1:3000/user.json").
       with(:body => request).
       to_return(:body => response.to_json)
-
-###Client side project setup
-
-In your `Rakefile`:
-
-    require "json_schema_spec/tasks"
-    JsonSchemaSpec::Tasks.new("http://127.0.0.1:3000")
-
-####Download schema
-
-Download `schema.json` from the URL specified in your `Rakefile`:
-
-    rake spec:schema
-
-The schema is written to `schema/fixtures`.
-
-####Server side project setup
-
-On Rails, your schema is automatically detected at `/schema.json`.
-
-If your `schema.json` is somewhere else, try this:
-
-    JsonSchemaSpec.schema = get("/users/schema.json")
 
 ### Contribute
 
