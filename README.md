@@ -17,23 +17,25 @@ You serve a `schema.json` file at the root of a URL that describes your resource
 
     {
         "user.json": {
-            "request": {
-                "title": "GET user.json (request)",
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "id":    { "type": "integer" },
-                    "token": { "type": "string" }
-                }
-            },
-            "response": {
-                "title": "GET user.json (response)",
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "id":     { "type": "integer" },
-                    "avatar": { "type": "string", "optional": true },
-                    "name":   { "type": "string" }
+            "get": {
+                "request": {
+                    "title": "GET user.json (request)",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "id":    { "type": "integer" },
+                        "token": { "type": "string" }
+                    }
+                },
+                "response": {
+                    "title": "GET user.json (response)",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "id":     { "type": "integer" },
+                        "avatar": { "type": "string", "optional": true },
+                        "name":   { "type": "string" }
+                    }
                 }
             }
         }
