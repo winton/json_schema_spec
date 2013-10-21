@@ -4,4 +4,4 @@ unless ENV['CI']
 end
 
 $root = File.expand_path('../../', __FILE__)
-require "#{$root}/lib/json_schema_helper"
+require "#{$root}/lib/json_schema_spec"

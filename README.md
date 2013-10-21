@@ -1,4 +1,4 @@
-##JsonSchemaHelper
+##JsonSchemaSpec
 
 Create and validate test parameters from JSON schema.
 
@@ -22,12 +22,8 @@ You are expected to be serving a `schema.json` file at the root of a URL that de
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "token": {
-                        "type": "string"
-                    }
+                    "id":    { "type": "integer" },
+                    "token": { "type": "string" }
                 }
             },
             "response": {
@@ -35,16 +31,9 @@ You are expected to be serving a `schema.json` file at the root of a URL that de
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "avatar": {
-                        "type": "string",
-                        "optional": true
-                    },
-                    "name": {
-                        "type": "string"
-                    }
+                    "id":     { "type": "integer" },
+                    "avatar": { "type": "string", "optional": true },
+                    "name":   { "type": "string" }
                 }
             }
         }
@@ -52,18 +41,18 @@ You are expected to be serving a `schema.json` file at the root of a URL that de
 
 ###Install
 
-    gem install json_schema_helper
+    gem install json_schema_spec
 
 ###Require
 
 In your `spec_helper`:
 
-    require "json_schema_helper"
+    require "json_schema_spec"
 
 In your `Rakefile` (only necessary within your client code):
 
-    require "json_schema_helper/tasks"
-    JsonSchemaHelper::Tasks.new("http://127.0.0.1:3000")
+    require "json_schema_spec/tasks"
+    JsonSchemaSpec::Tasks.new("http://127.0.0.1:3000")
 
 ###Client code
 
@@ -112,12 +101,12 @@ The `request` hash now looks like this:
 
 ### Contribute
 
-[Create an issue](https://github.com/winton/json_schema_helper/issues/new) to discuss template changes.
+[Create an issue](https://github.com/winton/json_schema_spec/issues/new) to discuss template changes.
 
 Pull requests for template changes and new branches are even better.
 
 ### Stay up to date
 
-[Star this project](https://github.com/winton/json_schema_helper#) on Github.
+[Star this project](https://github.com/winton/json_schema_spec#) on Github.
 
 [Follow Winton Welsh](http://twitter.com/intent/user?screen_name=wintonius) on Twitter.
