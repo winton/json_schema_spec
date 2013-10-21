@@ -1,6 +1,6 @@
 ##JsonSchemaSpec
 
-Create and validate test parameters generated from JSON schemas.
+Webmock requests and responses from JSON schemas.
 
 ###Goals
 
