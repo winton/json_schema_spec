@@ -5,15 +5,15 @@ Create and validate test parameters from JSON schema.
 ###Goals
 
 * Generate webmock request/response parameters from JSON schema
-* Easily change parameters for testing
+* Easily alter parameters for testing
+* Automatically validate altered parameters against schema
 * Rake helpers for client code to download JSON schema
-* Easily validate parameters against schema
 
 ###Requirements
 
-You are expected to be serving a `schema.json` file at the root of a URL that describes your resources.
+You serve a `schema.json` file at the root of a URL that describes your resources.
 
-####Example
+####Example schema.json
 
     {
         "user.json": {
@@ -49,20 +49,7 @@ In your `spec_helper`:
 
     require "json_schema_spec"
 
-In your `Rakefile` (only necessary within your client code):
-
-    require "json_schema_spec/tasks"
-    JsonSchemaSpec::Tasks.new("http://127.0.0.1:3000")
-
-###Client code
-
-####Download schema
-
-Run this rake task to download your `schema.json` to `schema/fixtures`:
-
-    rake spec:schema
-
-####Test params from schema
+###Test params from schema
 
     request, response = json_schema_params(:user, :get)
 
@@ -80,7 +67,7 @@ The `response` hash looks like this:
 
 **Optional** parameters are not included.
 
-####Modify test params
+###Modify test params
 
     request, response = json_schema_params(:user, :get, :request => { :id => 1 })
 
@@ -88,7 +75,7 @@ The `request` hash now looks like this:
 
     { :id => 1, :token => "token" }
 
-####Webmock example
+###Webmock example
 
     request, response = json_schema_params(:user, :get)
 
@@ -98,6 +85,29 @@ The `request` hash now looks like this:
     stub_request(:get, "http://127.0.0.1:3000/user.json").
       with(:body => request).
       to_return(:body => response.to_json)
+
+###Client side project setup
+
+In your `Rakefile`:
+
+    require "json_schema_spec/tasks"
+    JsonSchemaSpec::Tasks.new("http://127.0.0.1:3000")
+
+####Download schema
+
+Download `schema.json` from the URL specified in your `Rakefile`:
+
+    rake spec:schema
+
+The schema is written to `schema/fixtures`.
+
+####Server side project setup
+
+On Rails, your schema is automatically detected at `/schema.json`.
+
+If your `schema.json` is somewhere else, try this:
+
+    JsonSchemaSpec.schema = get("/users/schema.json")
 
 ### Contribute
 
