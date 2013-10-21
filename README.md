@@ -1,10 +1,10 @@
 ##JsonSchemaSpec
 
-Create and validate test parameters from JSON schema.
+Create and validate test parameters generated from JSON schemas.
 
 ###Goals
 
-* Generate webmock request/response parameters from JSON schema
+* Generate webmock requests and responses from JSON schema
 * Easily alter parameters for testing
 * Automatically validate altered parameters against schema
 * Rake helpers for client code to download JSON schema
@@ -64,7 +64,7 @@ Download `schema.json` from the URL specified in your `Rakefile`:
 
     rake spec:schema
 
-The schema is written to `schema/fixtures`.
+The schema lives in `schema/fixtures`.
 
 ###Server side project setup
 
@@ -99,6 +99,8 @@ The `response` hash looks like this:
 The `request` hash now looks like this:
 
     { :id => 1, :token => "token" }
+
+Modified parameters are validated against your schema using [json-schema](https://github.com/hoxworth/json-schema).
 
 ###Webmock example
 
