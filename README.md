@@ -1,6 +1,6 @@
 ##JsonSchemaSpec
 
-Webmock requests and responses from JSON schemas.
+Generate fixtures from JSON schemas
 
 ###Goals
 
