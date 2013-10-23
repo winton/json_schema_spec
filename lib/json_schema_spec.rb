@@ -72,8 +72,15 @@ module JsonSchemaSpec
   end
 
   def pick_json_schema
-    if defined?(Rails) && defined?(get)
-      JSON.parse(get("/schema.json"))
+    if defined?(Rails)
+      path       = "/schema.json"
+      uri        = URI.parse(path)
+      env        = Rack::MockRequest.env_for(uri, 'HTTP_ACCEPT' => 'application/json')
+      params     = Rails.application.routes.recognize_path(path)
+      controller = "#{params[:controller]}_controller".camelize.constantize
+      endpoint   = controller.action(params[:action])
+
+      JSON.parse(endpoint.call(env)[2].body)
     else
       path = "#{File.expand_path(".")}/spec/fixtures/schema.yml"
       YAML.load(File.read(path))
