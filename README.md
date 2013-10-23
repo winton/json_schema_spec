@@ -70,10 +70,6 @@ The schema lives at `schema/fixtures/schema.yml`.
 
 In Rails, your schema is automatically detected at `/schema.json`.
 
-If your `schema.json` is somewhere else, try this:
-
-    JsonSchemaSpec.schema = get("/users/schema.json")
-
 ###Generate test parameters
 
     request, response = json_schema_params(:user, :get)

@@ -18,35 +18,6 @@ module JsonSchemaSpec
         hash
       end
       
-      def mattr_reader(klass, *syms)
-        syms.each do |sym|
-          raise NameError.new('invalid attribute name') unless sym =~ /^[_A-Za-z]\w*$/
-          klass.class_eval(<<-EOS, __FILE__, __LINE__ + 1)
-            @@#{sym} = nil unless defined? @@#{sym}
-
-            def self.#{sym}
-              @@#{sym}
-            end
-          EOS
-        end
-      end
-
-      def mattr_writer(klass, *syms)
-        syms.each do |sym|
-          raise NameError.new('invalid attribute name') unless sym =~ /^[_A-Za-z]\w*$/
-          klass.class_eval(<<-EOS, __FILE__, __LINE__ + 1)
-            def self.#{sym}=(obj)
-              @@#{sym} = obj
-            end
-          EOS
-        end
-      end
-
-      def mattr_accessor(klass, *syms)
-        mattr_reader(*syms)
-        mattr_writer(*syms)
-      end
-      
       def symbolize_keys(hash)
         hash.inject({}) do |memo, (key, value)|
           key       = (key.to_sym rescue key) || key
