@@ -55,8 +55,8 @@ In your `spec_helper`:
 
 In your `Rakefile`:
 
-    require "json_schema_spec/tasks"
-    JsonSchemaSpec::Tasks.new("http://127.0.0.1:3000")
+    require "json_schema_spec"
+    JsonSchemaSpec::Tasks.new("http://127.0.0.1:3000/schema.json")
 
 ####Download schema
 
@@ -64,11 +64,11 @@ Download `schema.json` from the URL specified in your `Rakefile`:
 
     rake spec:schema
 
-The schema lives in `schema/fixtures`.
+The schema lives at `schema/fixtures/schema.yml`.
 
 ###Server side project setup
 
-On Rails, your schema is automatically detected at `/schema.json`.
+In Rails, your schema is automatically detected at `/schema.json`.
 
 If your `schema.json` is somewhere else, try this:
 

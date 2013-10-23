@@ -1,0 +1,30 @@
+---
+user.json:
+  get:
+    request:
+      title: GET user.json (request)
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        token:
+          type: string
+    response:
+      title: GET user.json (response)
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        avatar:
+          type: string
+          optional: true
+        name:
+          type: string
+        company:
+          type: object
+          additionalProperties: false
+          properties:
+            name:
+              type: string

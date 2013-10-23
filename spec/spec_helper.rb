@@ -5,3 +5,7 @@ end
 
 $root = File.expand_path('../../', __FILE__)
 require "#{$root}/lib/json_schema_spec"
+
+RSpec.configure do |c|
+  c.include JsonSchemaSpec
+end
