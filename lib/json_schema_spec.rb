@@ -33,7 +33,9 @@ module JsonSchemaSpec
     params = json_schema_to_params(schema)
     params = Util.deep_merge(params, merge)
 
-    validate_json_schema(resource, method, params)
+    unless merge.empty?
+      validate_json_schema(resource, method, params)
+    end
 
     params = Util.deep_dup(params)
     [ params[:request], params[:response] ]
