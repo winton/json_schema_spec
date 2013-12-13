@@ -54,12 +54,16 @@ module JsonSchemaSpec
   def json_schema_value(key, value, prefix)
     if !value.is_a?(Hash) || value[:optional]
       nil
-    elsif value[:type] == 'string'
-      json_schema_value_prefix(prefix) + key.to_s
+    elsif value[:type] == 'array'
+      [ json_schema_value(key, value[:items], prefix) ]
+    elsif value[:type] == 'boolean'
+      rand(2) == 1
     elsif value[:type] == 'integer'
       Random.rand(1_000_000)
     elsif value[:type] == 'object'
       json_schema_to_params(value[:properties], prefix << key)
+    elsif value[:type] == 'string'
+      json_schema_value_prefix(prefix) + key.to_s
     else
       json_schema_to_params(value)
     end

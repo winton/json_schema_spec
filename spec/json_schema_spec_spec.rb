@@ -12,11 +12,17 @@ describe JsonSchemaSpec do
       )
       
       expect(response).to eq(
-        :id      => response[:id],
-        :name    => "name",
-        :company => {
-          :name  => "company:name"
-        }
+        :id       => response[:id],
+        :name     => "name",
+        :company  => {
+          :name   => "company:name"
+        },
+        :articles => [
+          {
+            :body  => "articles:body",
+            :title => "articles:title"
+          }
+        ]
       )
     end
   end

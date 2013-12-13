@@ -28,3 +28,12 @@ user.json:
           properties:
             name:
               type: string
+        articles:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
