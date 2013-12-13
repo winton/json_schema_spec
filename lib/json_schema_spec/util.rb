@@ -13,7 +13,16 @@ module JsonSchemaSpec
       def deep_merge(hash, other_hash)
         other_hash.each_pair do |k,v|
           tv = hash[k]
-          hash[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? deep_merge(tv, v) : v
+          if tv.is_a?(Hash) && v.is_a?(Hash)
+            hash[k] = deep_merge(tv, v)
+          elsif  tv.is_a?(Array) && v.is_a?(Array)
+            (0..([ tv.length, v.length ].max - 1)).each do |i|
+              tv[i] = deep_merge(tv[i], v[i])
+            end
+            hash[k] = tv
+          else
+            hash[k] = v
+          end
         end
         hash
       end
