@@ -31,8 +31,6 @@ module JsonSchemaSpec
   def json_schema_params(resource, method, merge={})
     schema = json_schema(resource, method)
     params = json_schema_to_params(schema)
-
-    # TODO: make this handle array merging
     params = Util.deep_merge(params, merge)
 
     unless merge.empty?
