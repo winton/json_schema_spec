@@ -12,28 +12,30 @@ user.json:
           type: string
     response:
       title: GET user.json (response)
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-        avatar:
-          type: string
-          optional: true
-        name:
-          type: string
-        company:
-          type: object
-          additionalProperties: false
-          properties:
-            name:
-              type: string
-        articles:
-          type: array
-          items:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        properties:
+          id:
+            type: integer
+          avatar:
+            type: string
+            optional: true
+          name:
+            type: string
+          company:
             type: object
+            additionalProperties: false
             properties:
-              title:
+              name:
                 type: string
-              body:
-                type: string
+          articles:
+            type: array
+            items:
+              type: object
+              properties:
+                title:
+                  type: string
+                body:
+                  type: string

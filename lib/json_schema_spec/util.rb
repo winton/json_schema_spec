@@ -10,21 +10,23 @@ module JsonSchemaSpec
         duplicate
       end
 
-      def deep_merge(hash, other_hash)
-        other_hash.each_pair do |k,v|
-          tv = hash[k]
-          if tv.is_a?(Hash) && v.is_a?(Hash)
-            hash[k] = deep_merge(tv, v)
-          elsif  tv.is_a?(Array) && v.is_a?(Array)
-            (0..([ tv.length, v.length ].max - 1)).each do |i|
-              tv[i] = deep_merge(tv[i], v[i])
-            end
-            hash[k] = tv
-          else
-            hash[k] = v
+      def deep_merge(value, other_value)
+        if value.is_a?(Hash) && other_value.is_a?(Hash)
+          other_value.each_pair do |k, v|
+            value[k] = deep_merge(value[k], v)
           end
+        
+        elsif value.is_a?(Array) && other_value.is_a?(Array)
+          value = (0..([ value.length, other_value.length ].max - 1)).collect do |i|
+            deep_merge(value[i], other_value[i])
+          end
+
+        elsif other_value
+
+          value = other_value
         end
-        hash
+
+        value
       end
       
       def symbolize_keys(hash)

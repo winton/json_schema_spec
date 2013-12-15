@@ -11,8 +11,8 @@ describe JsonSchemaSpec do
         :token => "token"
       )
       
-      expect(response).to eq(
-        :id       => response[:id],
+      expect(response).to eq([{
+        :id       => response[0][:id],
         :name     => "name",
         :company  => {
           :name   => "company:name"
@@ -23,7 +23,7 @@ describe JsonSchemaSpec do
             :title => "articles:title"
           }
         ]
-      )
+      }])
     end
   end
 end
