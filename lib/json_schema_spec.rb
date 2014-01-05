@@ -59,7 +59,7 @@ module JsonSchemaSpec
     elsif value[:type] == 'boolean'
       rand(2) == 1
     elsif value[:type] == 'integer'
-      Random.rand(1_000_000)
+      rand(1_000_000)
     elsif value[:type] == 'object'
       json_schema_to_params(value[:properties], prefix << key)
     elsif value[:type] == 'string'
