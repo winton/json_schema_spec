@@ -28,13 +28,29 @@ module JsonSchemaSpec
 
         value
       end
+
+      def stringify_keys(value)
+        work_on_keys(value) { |k| k.to_s }
+      end
       
-      def symbolize_keys(hash)
-        hash.inject({}) do |memo, (key, value)|
-          key       = (key.to_sym rescue key) || key
-          value     = symbolize_keys(value)   if value.is_a?(Hash)
-          memo[key] = value
-          memo
+      def symbolize_keys(value)
+        work_on_keys(value) { |k| k.to_sym }
+      end
+
+      def work_on_keys(value, &block)
+        if value.is_a?(Array)
+          value.collect { |v| work_on_keys(v, &block) }
+
+        elsif value.is_a?(Hash)
+          value.inject({}) do |memo, (k, v)|
+            k = (yield(k) rescue k) || k
+            v = work_on_keys(v, &block)
+            
+            memo[k] = v
+            memo
+          end
+
+        else value
         end
       end
     end

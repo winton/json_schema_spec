@@ -98,8 +98,8 @@ module JsonSchemaSpec
 
     [ :request, :response ].each do |direction|
       validates = JSON::Validator.fully_validate(
-        schema[direction],
-        params[direction],
+        Util.stringify_keys(schema[direction]),
+        Util.stringify_keys(params[direction]),
         :validate_schema => true
       )
       expect(validates).to eq([])
