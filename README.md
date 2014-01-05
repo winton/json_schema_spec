@@ -2,6 +2,8 @@
 
 Generate fixtures from JSON schemas
 
+[![Build Status](https://secure.travis-ci.org/winton/json_schema_spec.png)](http://travis-ci.org/winton/json_schema_spec)
+
 ###Goals
 
 * Generate webmock requests and responses from JSON schema
