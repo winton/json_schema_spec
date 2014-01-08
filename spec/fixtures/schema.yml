@@ -19,6 +19,10 @@ user.json:
         properties:
           id:
             type: integer
+          admin:
+            type: integer
+            enum:
+              - 0
           avatar:
             type: string
             optional: true

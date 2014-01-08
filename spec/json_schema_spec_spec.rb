@@ -13,6 +13,7 @@ describe JsonSchemaSpec do
       
       expect(response).to eq([{
         :id       => response[0][:id],
+        :admin    => 0,
         :name     => "name",
         :company  => {
           :name   => "company:name"

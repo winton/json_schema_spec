@@ -54,6 +54,8 @@ module JsonSchemaSpec
   def json_schema_value(key, value, prefix)
     if !value.is_a?(Hash) || value[:optional] || value[:type] == 'null'
       nil
+    elsif value[:enum]
+      value[:enum].shuffle.first
     elsif value[:type] == 'array'
       [ json_schema_value(key, value[:items], prefix) ]
     elsif value[:type] == 'boolean'
