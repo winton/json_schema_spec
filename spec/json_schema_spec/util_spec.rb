@@ -5,8 +5,8 @@ describe JsonSchemaSpec::Util do
 
     let(:input) do
       [
-        { :a => [ { :b => 1, :d => 3 } ], :a2 => true },
-        { :a => [ { :c => 2, :e => 4 } ] }
+        { :a => [ { :b => 1, :d => 3, :f => 5 } ], :a2 => true },
+        { :a => [ { :c => 2, :e => 4, :f => :_DEL } ] }
       ]
     end
 
