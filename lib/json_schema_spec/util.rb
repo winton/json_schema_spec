@@ -25,7 +25,7 @@ module JsonSchemaSpec
             deep_merge(value[i], other_value[i])
           end
 
-        elsif other_value
+        else
 
           value = other_value
         end
