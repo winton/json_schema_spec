@@ -59,7 +59,7 @@ module JsonSchemaSpec
     elsif value[:type] == 'array'
       [ json_schema_value(key, value[:items], prefix) ]
     elsif value[:type] == 'boolean'
-      rand(2) == 1
+      true
     elsif value[:type] == 'integer'
       rand(1_000_000)
     elsif value[:type] == 'object'
