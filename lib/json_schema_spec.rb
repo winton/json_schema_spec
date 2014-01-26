@@ -31,7 +31,7 @@ module JsonSchemaSpec
   def json_schema_params(resource, method, merge={})
     required = merge[:required]
     schema   = json_schema(resource, method)
-    params   = json_schema_to_params(schema, required: required)
+    params   = json_schema_to_params(schema, :required => required)
     params   = Util.deep_merge(params, merge)
 
     unless merge.empty?
@@ -71,7 +71,9 @@ module JsonSchemaSpec
       rand(1_000_000)
     elsif value[:type] == 'object'
       prefix << key
-      json_schema_to_params(value[:properties], prefix: prefix, required: required)
+      json_schema_to_params(
+        value[:properties], :prefix => prefix, :required => required
+      )
     elsif value[:type] == 'string'
       json_schema_value_prefix(prefix) + key.to_s
     else
