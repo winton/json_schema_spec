@@ -15,7 +15,7 @@ module JsonSchemaSpec
       FileUtils.mkdir_p(File.dirname(path))
       
       File.open(path, 'w') do |f|
-        json = open(url).string
+        json = open(url).read
         yaml = JSON.parse(json).to_yaml
         f.write(yaml)
       end
