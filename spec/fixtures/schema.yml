@@ -26,6 +26,9 @@ user.json:
           avatar:
             type: string
             optional: true
+          bio:
+            type: string
+            optional: true
           name:
             type: string
           company:

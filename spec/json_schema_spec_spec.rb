@@ -4,7 +4,7 @@ describe JsonSchemaSpec do
   describe "#json_schema_params" do
 
     it "generates proper params" do
-      request, response = json_schema_params(:user, :get)
+      request, response = json_schema_params(:user, :get, :required => :bio)
 
       expect(request).to eq(
         :id    => request[:id],
@@ -14,6 +14,7 @@ describe JsonSchemaSpec do
       expect(response).to eq([{
         :id       => response[0][:id],
         :admin    => 0,
+        :bio      => "bio",
         :name     => "name",
         :company  => {
           :name   => "company:name"

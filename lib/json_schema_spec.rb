@@ -29,9 +29,10 @@ module JsonSchemaSpec
   end
 
   def json_schema_params(resource, method, merge={})
-    schema = json_schema(resource, method)
-    params = json_schema_to_params(schema)
-    params = Util.deep_merge(params, merge)
+    required = merge[:required]
+    schema   = json_schema(resource, method)
+    params   = json_schema_to_params(schema, required: required)
+    params   = Util.deep_merge(params, merge)
 
     unless merge.empty?
       validate_json_schema(resource, method, params)
@@ -41,29 +42,36 @@ module JsonSchemaSpec
     [ params[:request], params[:response] ]
   end
 
-  def json_schema_to_params(schema, prefix=[])
+  def json_schema_to_params(schema, options={})
     return schema  unless schema.is_a?(Hash)
     
     schema.inject({}) do |memo, (key, value)|
-      memo[key] = json_schema_value(key, value, prefix.dup)
+      memo[key] = json_schema_value(key, value, options)
       memo.delete(key)  unless memo[key]
       memo
     end
   end
 
-  def json_schema_value(key, value, prefix)
-    if !value.is_a?(Hash) || value[:optional] || value[:type] == 'null'
+  def json_schema_value(key, value, options={})
+    prefix   = options[:prefix] || []
+    prefix   = prefix.dup  if prefix
+
+    required = options[:required] || []
+    required = [ required ].flatten  if required
+
+    if return_nil?(key, value, required)
       nil
     elsif value[:enum]
       value[:enum].shuffle.first
     elsif value[:type] == 'array'
-      [ json_schema_value(key, value[:items], prefix) ]
+      [ json_schema_value(key, value[:items], options) ]
     elsif value[:type] == 'boolean'
       true
     elsif value[:type] == 'integer'
       rand(1_000_000)
     elsif value[:type] == 'object'
-      json_schema_to_params(value[:properties], prefix << key)
+      prefix << key
+      json_schema_to_params(value[:properties], prefix: prefix, required: required)
     elsif value[:type] == 'string'
       json_schema_value_prefix(prefix) + key.to_s
     else
@@ -91,6 +99,14 @@ module JsonSchemaSpec
       path = "#{File.expand_path(".")}/spec/fixtures/schema.yml"
       YAML.load(File.read(path))
     end
+  end
+
+  def return_nil?(key, value, required)
+    !required.include?(key) && (
+      !value.is_a?(Hash) ||
+      value[:optional]   ||
+      value[:type] == 'null'
+    )
   end
 
   def validate_json_schema(resource, method, params)
