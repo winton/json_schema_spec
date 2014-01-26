@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "json_schema_spec"
-  spec.version       = "0.1.2"
+  spec.version       = "0.1.3"
   spec.authors       = ["Winton Welsh"]
   spec.email         = ["mail@wintoni.us"]
   spec.description   = %q{Generate fixtures from JSON schemas.}
