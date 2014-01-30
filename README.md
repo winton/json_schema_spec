@@ -78,13 +78,13 @@ In Rails, your schema is automatically detected at `/schema.json`.
 
 The `request` hash looks like this:
 
-    { :id => 72238, :token => "token" }
+    { :id => 123, :token => "token" }
 
 The `response` hash looks like this:
 
     { :avatar => "avatar", :name => "name" }
 
-**Integer** values are given a random number.
+**Integer** values are given the value 123.
 
 **String** values are given the same name as the key.
 
